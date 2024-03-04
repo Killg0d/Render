@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% extends 'base.html'%}
+    {% block content %}
+
+    {% load static %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    {% include "messages.html" %}
+    {% block title %}
+    <title>Jobtitle</title>
+    {% endblock %}
+
+    <style>
+        .overall {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10%;
+
+
+        }
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid black;
+            width: 47%;
+            padding: 2%;
+            padding-left: 5%;
+
+        }
+
+        .right {
+            display: flex;
+            flex-direction: column;
+            width: 45%;
+            padding: 2%;
+            padding-left: 5%;
+            height: 100%;
+
+        }
+
+        .none {
+            list-style: circle;
+        }
+
+        .display {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right .next {
+            margin: 5%;
+            align-self: flex-end;
+
+
+            float: right;
+
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .bold {
+            font-weight: bold;
+            margin: 1px;
+        }
+
+        .edit-option {
+            cursor: pointer;
+        }
+        #hidden_checkbox{
+            display: none;
+        }
+    </style>
+    <script>
+        function showNextContent(contentIndex) {
+            // Get the selected radio button
+            var radioButtons = document.getElementsByName('option');
+            var selectedOption;
+            for (var i = 0; i < radioButtons.length; i++) {
+                if (radioButtons[i].checked) {
+                    selectedOption = radioButtons[i].value;
+                    break;
+                }
+            }
+
+            // Display the selected option as a label
+            var selectedOptionLabel = document.createElement('label');
+            selectedOptionLabel.innerHTML = selectedOption + ' <i class="fas fa-pencil-alt"></i> ';
+            selectedOptionLabel.classList.add("bold");
+            selectedOptionLabel.name
+            var checkboxes = document.createElement("input");
+            checkboxes.type = "checkbox";
+            checkboxes.name = "checkboxlist";
+            checkboxes.checked = true;
+            checkboxes.value = selectedOption;
+            document.getElementById('hidden_checkbox').appendChild(checkboxes);
+            
+            document.getElementById(`selectedOptions${contentIndex}`).appendChild(selectedOptionLabel);
+            document.getElementById(`selectedOptions${contentIndex}`).appendChild(document.createElement('br'));
+           
+            /*selectedOptionLabel.classList.add("edit-option");
+            selectedOptionLabel.addEventListener('click', function () {
+                var content = document.getElementById(`nextContent${contentIndex - 1}`);
+                content.classList.remove('hidden')
+            });*/
+            // Hide the current contents
+
+            for (var j = 1; j < contentIndex; j++) {
+                var previousContent = document.getElementById(`nextContent${j}`);
+                previousContent.classList.add('hidden');
+            }
+            //Hide the next contents
+
+            // Show the next contents
+            document.getElementById(`nextContent${contentIndex}`).classList.remove('hidden');
+        }
+    </script>
+</head>
+
+<body>
+    <div class="overall pt-100 pb-100">
+        <div class="left ps-20">
+            <h6>3/5 Scope</h6><br>
+            <H4><b> Next, estimate the scope of your work.</b></H4><br>
+            <h6>Consider the size of the project and the time it will take</h6>
+
+        </div>
+
+
+
+        <div class="right ps-30 ">
+            <form class="display" action="job_duration" method="post">
+                {% csrf_token %}
+                <div id="selectedOptions1"></div>
+                <div id="nextContent1">
+                    <label>
+                        <input type="radio" name="option" id="large" value="Large"><b> Large</b><br>
+                        Longer term or complex initiatives (ex. develop and execute a brand strategy (ie, graphics,
+                        positioning))
+                        <br><br>
+                    </label>
+                    <label>
+                        <input type="radio" name="option" id="medium" value="Medium"><b> Medium</b><br>
+                        Well-defined projects (ex design business rebrand package (ie, logos, icons)) <br><br>
+                    </label>
+                    <label>
+                        <input type="radio" name="option" id="small" value="Small"><b> Small</b><br>
+                        Quick and straightforward tasks (ex. create logo for a new product) <br><br>
+                    </label>
+                    <button type="button" class="next btn btn-primary bg-pink"
+                        onclick="showNextContent(2)">Next</button>
+                </div>
+                <div id="selectedOptions2"></div>
+                <div id="nextContent2" class="hidden">
+
+                    <!-- Add your next content here -->
+                    <b>How long will the work take?</b><br>
+                    <label>
+                        <input type="radio" name="option" id="3 to 6 months" value="3 to 6 months"> 3 to 6 months
+
+                    </label><br>
+                    <label>
+                        <input type="radio" name="option" id="medium" value="1 to 3 months"> 1 to 3 months
+
+                    </label><br>
+                    <label>
+                        <input type="radio" name="option" id="lessthan1" value="Less than a month"> Less than a month
+                    </label>
+                    <br>
+                    <button type="button" class="next btn btn-primary bg-pink"
+                        onclick="showNextContent(3)">Next</button>
+                </div>
+                <div id="selectedOptions3"></div>
+                <div id="nextContent3" class="hidden">
+
+                    <b>What level of experience will it need?</b><br>
+                    <label>
+                        <input type="radio" class="radio" name="option" id="large" value="Entry"> <b>Entry</b><br>
+                        Looking for someone new to this feild
+                    </label><br>
+                    <label>
+                        <input type="radio" name="option" id="medium" value="Intermediate"> <b>Intermediate</b><br>
+                        Looking for substantial experience in this field
+
+                    </label><br>
+                    <label>
+                        <input type="radio" name="option" id="small" value="Expert"> <b>Expert</b><br>
+                        Looking for comprehensive and deep expertise in this field
+
+                    </label>
+                    <br><button type="button" class="next btn btn-primary bg-pink"
+                        onclick="showNextContent(4)">Next</button>
+                </div>
+                <div id="selectedOptions4"></div>
+                <div id="nextContent4" class="hidden">
+
+                    <b>Is this job a contract-to-hire opportunity?</b><br>
+                    This means you'll start with a contract, and may later explore a full-time option with the talent
+                    <br><br>
+                    <label>
+                        <input type="radio" class="radio"  name="option" value="Oportunity as contract only" id="large"> Yes<br>
+                    </label><br>
+                    <label>
+                        <input type="radio" name="option" value="Oportunity without contract" id="medium"> No<br>
+                    </label>
+
+                    <br><button type="button" class="next btn btn-primary bg-pink"
+                    onclick="showNextContent(5)">Next</button>
+
+                </div>
+                <div id="selectedOptions5"></div>
+                <div id="nextContent5" class="hidden">
+                    <input class="next btn btn-primary bg-pink" type="submit" value="Next Budget">
+                </div>
+                <div id="hidden_checkbox">
+                    
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
+{%endblock%}

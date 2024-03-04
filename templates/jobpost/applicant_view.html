@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {#% block title %#}
+    <title>Applicants</title>
+    {#% endblock %#}
+    {#% load static %#}
+    {#% include "messages.html" %#}
+    {#% block styles %#}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.3.200/pdf_viewer.css" />
+    {#% endblock %#}
+
+    {#% block content %#}
+
+<body>
+
+
+    
+</body>
+{#% endblock %#}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% extends 'base.html'%}
+    {% block content %}
+
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="{% static 'dash/style.css' %}">
+    {% include "messages.html" %}
+
+    {% block title %}
+    <title>CodePen - Products Dashboard UI</title>
+    {% endblock %}
+</head>
+
+<body style="margin-top: 75px;margin-bottom:400px;">
+    <!-- partial:index.partial.html -->
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="app-icon">
+                    <div class="account-info">
+                        <div class="account-info-picture">
+                            <img src="{{ user_image }} " alt="Company Image" height="60px" width="60px">"
+
+                        </div>
+                        <div class="account-info-name">{{request.user}}</div>
+                        <button class="account-info-more">
+
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item active">
+                    <a href="{% url 'providerhome' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-home">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                            <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="sidebar-list-item ">
+                    <a href="{% url 'alljobs' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-jobs">
+                            <rect x="4" y="9" width="16" height="12" rx="2" ry="2" />
+                            <circle cx="12" cy="6" r="3.5" />
+                            <path d="M12 14v-3.5M12 17h0" />
+                        </svg>
+
+                        <span>All Jobs</span>
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="{% url 'createjob' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-document">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                            <line x1="12" y1="8" x2="12" y2="16" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                        </svg>
+
+                        <span>Create a Job</span>
+                    </a>
+                </li>
+                <li class="sidebar-list-item ">
+                    <a href="{% url 'applications' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-job-applications">
+                            <rect x="3" y="2" width="18" height="20" rx="2" ry="2" />
+                            <path d="M16 10H8M16 14H8M10 18h4M6 18h2M6 6h12" />
+                        </svg>
+
+
+                        <span>Applications</span>
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="{% url 'acceptedjob' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-page">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                            <path d="M9 12l2 2 4-4" />
+                        </svg>
+                        <span>Accepted Jobs</span>
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="{% url 'rejectedjob' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-document-x">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                            <line x1="8" y1="8" x2="16" y2="16" />
+                            <line x1="16" y1="8" x2="8" y2="16" />
+                        </svg>
+                        <span>Rejected Jobs</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="app-content">
+            <div class="app-content-header">
+                <h1 class="app-content-headerText">JOBS</h1>
+                <button class="mode-switch" title="Switch Theme">
+                    <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
+                        <defs></defs>
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+                </button>
+                <button class="app-content-headerButton">Add Job</button>
+            </div>
+            <div class="app-content-actions">
+                <input class="search-bar" placeholder="Search..." type="text">
+                <div class="app-content-actions-wrapper">
+                    <div class="filter-button-wrapper">
+                        <button class="action-button filter jsFilter"><span>Filter</span><svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-filter">
+                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+                            </svg></button>
+                        <div class="filter-menu">
+                            <label>Category</label>
+                            <select>
+                                <option>All Categories</option>
+                                <option>Furniture</option>
+                                <option>Decoration</option>
+                                <option>Kitchen</option>
+                                <option>Bathroom</option>
+                            </select>
+                            <label>Status</label>
+                            <select>
+                                <option>All Status</option>
+                                <option>Active</option>
+                                <option>Disabled</option>
+                            </select>
+                            <div class="filter-menu-buttons">
+                                <button class="filter-button reset">
+                                    Reset
+                                </button>
+                                <button class="filter-button apply">
+                                    Apply
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="action-button list active" title="List View">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-list">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="21" y2="12" />
+                            <line x1="8" y1="18" x2="21" y2="18" />
+                            <line x1="3" y1="6" x2="3.01" y2="6" />
+                            <line x1="3" y1="12" x2="3.01" y2="12" />
+                            <line x1="3" y1="18" x2="3.01" y2="18" />
+                        </svg>
+                    </button>
+                    <button class="action-button grid" title="Grid View">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-grid">
+                            <rect x="3" y="3" width="7" height="7" />
+                            <rect x="14" y="3" width="7" height="7" />
+                            <rect x="14" y="14" width="7" height="7" />
+                            <rect x="3" y="14" width="7" height="7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 mx-auto">
+                            <img src="#" alt="profile pic" style="border-radius: 100%;" height="100px" width="100px">
+                            <h1 class="app-content-headerLabel">Tarun Shetty</h1>
+                            <h4 class="app-content-headerLabel">Applied for: Job Title</h4>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto mt-5">
+                            <h6 class="app-content-headerLabel">Email:</h6>
+                            <h6 class="app-content-headerLabel">Mobile No:</h6>
+                            <h6 class="app-content-headerLabel">DOB:</h6>
+                            <h6 class="app-content-headerLabel">Country:</h6>
+                            <h6 class="app-content-headerLabel">Address:</h6>
+                            <h6 class="app-content-headerLabel">City:</h6>
+                            <h6 class="app-content-headerLabel">State:</h6>
+                            <h6 class="app-content-headerLabel">Pincode:</h6>
+                            <h6 class="app-content-headerLabel">Education:</h6>
+                            <h6 class="app-content-headerLabel">Skills:</h6>
+                            <h6 class="app-content-headerLabel">Work Experience:</h6>
+                            
+                            
+                            <input type="submit" class="app-content-headerButton" value="Accept" />  
+                            <button type="button" class="app-content-headerButton"style="background-color: red;" data-dismiss="modal">Reject</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- partial -->
+    <script src="{% static 'dash/script.js' %}"></script>
+
+</body>
+
+</html>
+{% endblock %}

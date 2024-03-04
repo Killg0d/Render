@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% extends 'base.html'%}
+    {% block content %}
+
+    {% load static %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    {% include "messages.html" %}
+    {% block title %}
+    <title>Jobtitle</title>
+    {% endblock %}
+
+    <style>
+        .overall {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10%;
+
+
+        }
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid black;
+            width: 47%;
+            padding: 2%;
+            padding-left: 5%;
+
+        }
+
+        .right {
+            display: flex;
+            flex-direction: column;
+            width: 45%;
+            padding: 2%;
+            padding-left: 5%;
+            height: 100%;
+
+        }
+
+        .none {
+            list-style: circle;
+        }
+
+        .display {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right .next {
+            margin: 5%;
+            align-self: flex-end;
+
+
+            float: right;
+
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .none {
+            list-style: circle;
+            margin-left: 5%;
+        }
+    </style>
+    <script>
+        window.addEventListener("DOMContentLoaded", function () {
+            var textarea = document.getElementById("myTextArea");
+            var charCountLabel = document.getElementById("charCount");
+            var charCount = 0; // Set the default value of charCount to zero
+            charCountLabel.textContent = charCount + "/5000"; // Display the default value
+            textarea.addEventListener("input", function () {
+                var text = textarea.value;
+                var charCount = text.length;
+                charCountLabel.textContent = charCount + "/5000";
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="overall pt-100 pb-100">
+        <div class="left ps-20">
+            <h6>5/5 Description</h6><br>
+            <H4><b>Last step, start the conversation</b></H4><br>
+            <h6>Talent are looking for:</h6>
+            <ul class="none">
+                <li class="none">Clear expectations about your task or deliverables</li>
+                <li class="none">The skills required for your work</li>
+                <li class="none">Good communication</li>
+                <li class="none">Details about how you or your team like to work</li>
+            </ul>
+
+        </div>
+        <div class="right ps-30 ">
+            <form class="display" action="job_description" method="post">
+                {% csrf_token %}
+                <h4>Describe your job</h4>
+                <textarea name="myTextArea" id="myTextArea" placeholder="Already have a description? Paste it here!
+                " cols="30" rows="10" maxlength="5000"></textarea>
+                <label style="display: flex;align-self:flex-end;" id="charCount">/5000</label>
+                <input class="next btn btn-primary bg-pink" type="submit" value="Next"></label>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
+{%endblock%}

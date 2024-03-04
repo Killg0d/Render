@@ -1,0 +1,447 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+   <meta name="description" content="">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   {% extends 'base.html'%}
+   {% block content %}
+
+   {% load static %}
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+   <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.1.3-dist/css/bootstrap.min.css' %}" />
+   {% include "messages.html" %}
+
+   {% block title %}
+   <title>Opus</title>
+   {% endblock %}
+
+   <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+   <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+   <link rel="stylesheet" href="{% static 'assets/css/price_rangs.css' %}">
+   <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
+   <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+   <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+   <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+   <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
+   <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+   <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+   <link rel="stylesheet" type="text/css" href="{% static 'assets/css/toastr.css' %}" media="all">
+   <style>
+      .comment-container {
+         width: 100%;
+         max-height: 250px;
+         overflow: auto;
+         padding: 0 4px;
+      }
+   </style>
+
+<body>
+
+   <main>
+
+      <!-- Hero Area Start-->
+      <div class="slider-area ">
+         <div class="single-slider section-overly slider-height2 d-flex align-items-center"
+            data-background="{% static 'assets/img/hero/about.jpg' %}">
+            <div class="container">
+               <div class="row">
+                  <div class="col-xl-12">
+                     <div class="hero-cap text-center">
+                        <h2>Blog Details</h2>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Hero Area End -->
+      <!--================Blog Area =================-->
+      {% load custom_filters %}
+      <section class="blog_area single-post-area section-padding">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-8 posts-list">
+                  <div class="single-post">
+                     <div class="feature-img">
+                        <img class="img-fluid" src="{{blog.image.url}}" alt="">
+                     </div>
+                     <div class="blog_details">
+
+                        <h1>{{blog.title}}
+                        </h1>
+
+                        <ul class="blog-info-link mt-3 mb-4">
+                           <li><a href="#"><i class="fa fa-user"></i> {{blog.category}}</a></li>
+                           <li><a href="#"><i class="fa fa-comments"></i> {{ comments|count_items }}</a></li>
+                        </ul>
+                        <p class="excert">
+                           {{ blog.content|safe }}
+                        </p>
+                        <p>
+
+                        </p>
+                        <!--div class="quote-wrapper">
+                           <div class="quotes">
+                              
+                           </div>
+                        </div-->
+                        <p>
+
+                        </p>
+                        <p>
+
+                        </p>
+                     </div>
+                  </div>
+                  <div class="navigation-top">
+                     <div class="d-sm-flex justify-content-between text-center">
+                        <p class="like-info"><span class="align-middle"><i class="fa fa-heart"></i></span> Lily
+                           and 4
+                           people like this</p>
+                        <div class="col-sm-4 text-center my-2 my-sm-0">
+                           <!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
+                        </div>
+                        <ul class="social-icons">
+                           <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                           <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                           <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
+                           <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                        </ul>
+                     </div>
+                     {% if previous_blog or next_blog %}
+                     <div class="navigation-area">
+                        <div class="row">
+                           <div
+                              class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                              {% if previous_blog %}
+
+
+                              <div class="thumb">
+                                 <a href="{% url 'single_blog' previous_blog.id %}">
+                                    <img class="img-fluid" src="{% static 'assets/img/post/preview.png' %}" alt="">
+                                 </a>
+                              </div>
+                              <div class="arrow">
+                                 <a href="{% url 'single_blog' previous_blog.id %}">
+                                    <span class="lnr text-white ti-arrow-left"></span>
+                                 </a>
+                              </div>
+                              <div class="detials">
+                                 <p>Prev Post</p>
+                                 <a href="{% url 'single_blog' previous_blog.id %}">
+                                    <h4>{{previous_blog.title}}</h4>
+                                 </a>
+                              </div>
+                              {% endif %}
+                           </div>
+                           <div
+                              class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                              {% if next_blog %}
+
+                              <div class="detials">
+                                 <p>Next Post</p>
+                                 <a href="{% url 'single_blog' next_blog.id %}">
+                                    <h4>{{next_blog.title}}</h4>
+                                 </a>
+                              </div>
+                              <div class="arrow">
+                                 <a href="{% url 'single_blog' next_blog.id %}">
+                                    <span class="lnr text-white ti-arrow-right"></span>
+                                 </a>
+                              </div>
+                              <div class="thumb">
+                                 <a href="{% url 'single_blog' next_blog.id %}">
+                                    <img class="img-fluid" src="{% static 'assets/img/post/next.png' %}" alt="">
+                                 </a>
+                              </div>
+                              {% endif %}
+
+                           </div>
+                        </div>
+                     </div>
+                     {%endif%}
+                  </div>
+                  <!--div class="blog-author">
+                     <div class="media align-items-center">
+                        <img src="{% static 'assets/img/blog/author.png' %}" alt="">
+                        <div class="media-body">
+                           <a href="#">
+                              <h4>Harvard milan</h4>
+                           </a>
+                           <p>Second divided from form fish beast made. Every of seas all gathered use saying
+                              you're, he
+                              our dominion twon Second divided from</p>
+                        </div>
+                     </div>
+                  </div-->
+
+
+
+                  <div class="comments-area">
+                     <h4>{{ comments|count_items }} Comments</h4>
+                     <div class="comment-container">
+                        {% for comment in comments %}
+                        <div class="comment-list">
+                           <div class="single-comment justify-content-between d-flex">
+                              <div class="user justify-content-between d-flex">
+                                 <div class="thumb">
+                                    <img src="{{comment.author.profile_img.url}}" alt="">
+                                 </div>
+                                 <div class="desc">
+                                    <p class="comment">
+                                       {{comment.content}}
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+                                       <div class="d-flex align-items-center">
+                                          <h5>
+                                             <a href="#">{{comment.author.username}}</a>
+                                          </h5>
+                                          <p class="date">{{comment.pub_date}}</p>
+                                       </div>
+
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        {% endfor %}
+                     </div>
+                  </div>
+
+                  {% if user.is_authenticated %}
+                  <div class="comment-form">
+                     <h4>Leave a Reply</h4>
+                     <form class="form-contact comment_form" action="{% url 'add_comment' blog.id %}" method="post"
+                        id="commentForm">
+                        {% csrf_token %}
+                        <div class="row">
+                           <div class="col-12">
+                              <div class="form-group">
+                                 <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
+                                    placeholder="Write Comment"></textarea>
+                              </div>
+                           </div>
+
+                        </div>
+                        <div class="form-group">
+                           <button type="submit" class="button button-contactForm btn_1 boxed-btn">Leave
+                              Comment</button>
+                        </div>
+                     </form>
+                  </div>
+                  {%else%}
+                  <div class="comment-form">
+                     <h2>Please Login to leave comment</h2>
+                  </div>
+                  {%endif%}
+               </div>
+               <div class="col-lg-4">
+                  <div class="blog_right_sidebar">
+                     <aside class="single_sidebar_widget search_widget">
+                        <form action="#">
+                           <div class="form-group">
+                              <div class="input-group mb-3">
+                                 <input type="text" class="form-control" placeholder='Search Keyword'
+                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'">
+                                 <div class="input-group-append">
+                                    <button class="btns" type="button"><i class="ti-search"></i></button>
+                                 </div>
+                              </div>
+                           </div>
+                           <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                              type="submit">Search</button>
+                        </form>
+                     </aside>
+                     <aside class="single_sidebar_widget post_category_widget">
+                        <h4 class="widget_title">Category</h4>
+                        <ul class="list cat-list">
+                           <li>
+                              <a href="#" class="d-flex">
+                                 <p>Resaurant food</p>
+                                 <p>(37)</p>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#" class="d-flex">
+                                 <p>Travel news</p>
+                                 <p>(10)</p>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#" class="d-flex">
+                                 <p>Modern technology</p>
+                                 <p>(03)</p>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#" class="d-flex">
+                                 <p>Product</p>
+                                 <p>(11)</p>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#" class="d-flex">
+                                 <p>Inspiration</p>
+                                 <p>(21)</p>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#" class="d-flex">
+                                 <p>Health Care</p>
+                                 <p>(21)</p>
+                              </a>
+                           </li>
+                        </ul>
+                     </aside>
+                     <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title">Recent Post</h3>
+                        <div class="media post_item">
+                           <img src="{% static 'assets/img/post/post_1.png' %}" alt="post">
+                           <div class="media-body">
+                              <a href="{% static 'single-blog.html' %}">
+                                 <h3>From life was you fish...</h3>
+                              </a>
+                              <p>January 12, 2019</p>
+                           </div>
+                        </div>
+                        <div class="media post_item">
+                           <img src="{% static 'assets/img/post/post_2.png' %}" alt="post">
+                           <div class="media-body">
+                              <a href="{% static 'single-blog.html' %}">
+                                 <h3>The Amazing Hubble</h3>
+                              </a>
+                              <p>02 Hours ago</p>
+                           </div>
+                        </div>
+                        <div class="media post_item">
+                           <img src="{% static 'assets/img/post/post_3.png' %}" alt="post">
+                           <div class="media-body">
+                              <a href="{% static 'single-blog.html' %}">
+                                 <h3>Astronomy Or Astrology</h3>
+                              </a>
+                              <p>03 Hours ago</p>
+                           </div>
+                        </div>
+                        <div class="media post_item">
+                           <img src="{% static 'assets/img/post/post_4.png' %}" alt="post">
+                           <div class="media-body">
+                              <a href="{% static 'single-blog.html' %}">
+                                 <h3>Asteroids telescope</h3>
+                              </a>
+                              <p>01 Hours ago</p>
+                           </div>
+                        </div>
+                     </aside>
+                     <aside class="single_sidebar_widget tag_cloud_widget">
+                        <h4 class="widget_title">Tag Clouds</h4>
+                        <ul class="list">
+                           <li>
+                              <a href="#">project</a>
+                           </li>
+                           <li>
+                              <a href="#">love</a>
+                           </li>
+                           <li>
+                              <a href="#">technology</a>
+                           </li>
+                           <li>
+                              <a href="#">travel</a>
+                           </li>
+                           <li>
+                              <a href="#">restaurant</a>
+                           </li>
+                           <li>
+                              <a href="#">life style</a>
+                           </li>
+                           <li>
+                              <a href="#">design</a>
+                           </li>
+                           <li>
+                              <a href="#">illustration</a>
+                           </li>
+                        </ul>
+                     </aside>
+                     <aside class="single_sidebar_widget instagram_feeds">
+                        <h4 class="widget_title">Instagram Feeds</h4>
+                        <ul class="instagram_row flex-wrap">
+                           <li>
+                              <a href="#">
+                                 <img class="img-fluid" src="{% static 'assets/img/post/post_5.png' %}" alt="">
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#">
+                                 <img class="img-fluid" src="{% static 'assets/img/post/post_6.png' %}" alt="">
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#">
+                                 <img class="img-fluid" src="{% static 'assets/img/post/post_7.png' %}" alt="">
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#">
+                                 <img class="img-fluid" src="{% static 'assets/img/post/post_8.png' %}" alt="">
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#">
+                                 <img class="img-fluid" src="{% static 'assets/img/post/post_9.png' %}" alt="">
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#">
+                                 <img class="img-fluid" src="{% static 'assets/img/post/post_10.png' %}" alt="">
+                              </a>
+                           </li>
+                        </ul>
+                     </aside>
+                     <aside class="single_sidebar_widget newsletter_widget">
+                        <h4 class="widget_title">Newsletter</h4>
+                        <form action="#">
+                           <div class="form-group">
+                              <input type="email" class="form-control" onfocus="this.placeholder = ''"
+                                 onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
+                           </div>
+                           <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                              type="submit">Subscribe</button>
+                        </form>
+                     </aside>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!--================ Blog Area end =================-->
+
+
+   </main>
+
+   <!-- Jquery Mobile Menu -->
+
+   <!-- Jquery Slick , Owl-Carousel Plugins -->
+   <script src="{% static 'assets/js/slick.min.js' %}"></script>
+
+   <!-- One Page, Animated-HeadLin -->
+
+
+   <!-- Scrollup, nice-select, sticky -->
+   <script src="{% static 'assets/js/jquery.scrollUp.min.js' %}"></script>
+   <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+   <script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
+
+   <!-- contact js -->
+
+
+   <!-- Jquery Plugins, main Jquery -->
+   <script src="{% static 'assets/js/plugins.js' %}"></script>
+   <script src="{% static 'assets/js/main.js' %}"></script>
+</body>
+
+</html>
+{% endblock %}

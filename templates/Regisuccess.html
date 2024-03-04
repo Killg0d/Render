@@ -1,0 +1,24 @@
+
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"  >
+    <title>Thank You for Registering</title>
+
+  </head>
+  
+  {% block content %} 
+  <body>
+    <form action="login" method="post">
+      {% csrf_token %}
+    <h2>Thank You for Registering</h2>
+    <p>Thank you for registering. Your account has been created.</p>
+    <input type="submit">
+  </body>
+  {% endblock %}
+</html>

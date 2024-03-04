@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% extends 'base.html'%}
+  {% block content %}
+
+  {% load static %}
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  {% include "messages.html" %}
+  {% block title %}
+  <title>User Registration Form</title>
+  {% endblock %}
+
+
+  {% block userregicss %}
+  <style>
+    /* style.css */
+
+    .regi_form {
+      width: 400px;
+      margin: 0 auto;
+    }
+
+    .regi_form-title {
+      text-align: center;
+    }
+
+    .regi_label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .regi_input,
+    .regi_select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    .regi_radio {
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    .regi_radio-span {
+      display: inline-block;
+    }
+
+    .regi_submit {
+      width: auto;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .regi_submit:hover {
+      background-color: #0056b3;
+    }
+
+    input[type="radio"] {
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    input[type="submit"] {
+      width: auto;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: red;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+
+    .gradient-custom {
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background: linear-gradient(to bottom right,
+          rgb(37, 6, 237),
+          rgb(247, 95, 7));
+    }
+
+    .card-registration .select-input.form-control[readonly]:not([disabled]) {
+      font-size: 1rem;
+      line-height: 2.15;
+      padding-left: 0.75em;
+      padding-right: 0.75em;
+    }
+
+    .card-registration .select-arrow {
+      top: 13px;
+    }
+  </style>
+
+  {% endblock %}
+</head>
+
+<section class="vh-200 gradient-custom">
+  <div class="container mt-50 py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-6 col-lg-7 col-xl-6">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px">
+          <div class="card-body py-3 p-md-5">
+            <h2 class="regi_form-title">User Registration Form</h2>
+            <form action="register" method="post" class="regi_form ">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="username" class="regi_label">Username:</label>
+                  <input type="text" id="username" name="username" required class="regi_input"
+                    data-error-message="Please enter a username." data-error-message-style="color:red;font-weight:bold;"
+                    placeholder=" Enter Your Username" onblur="validateUsername(this)"
+                    onchange="validateUsername(this)" />
+                  <div id="UsernameError" class="error"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="firstname" class="regi_label">First Name:</label>
+                  <input type="text" id="firstname" name="firstname" required class="regi_input"
+                    data-error-message="Please enter a First Name."
+                    data-error-message-style="color:red;font-weight:bold;" placeholder=" Enter Your First Name"
+                    pattern="[a-zA-Z]+" onblur="validateFirstName(this)" onchange="validateFirstName(this)" />
+                  <div id="FirstnameError" class="error"></div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="lastname" class="regi_label">Last Name:</label>
+                  <input type="text" id="lastname" name="lastname" required class="regi_input"
+                    data-error-message="Please enter a Last Name."
+                    data-error-message-style="color:red;font-weight:bold;" placeholder=" Enter Your Last Name"
+                    pattern="[a-zA-Z]+" onblur="validateLastName(this)" onchange="validateLastName(this)" />
+                  <div id="LastnameError" class="error"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="email" class="regi_label">Email:</label>
+                  <input type="email" id="email" name="email" pattern="[a-z0-9.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required
+                    data-error-message="Please enter a Email." data-error-message-style="color:red;font-weight:bold;"
+                    class="regi_input" placeholder="Enter Your Email" onblur="validateEmail(this)"
+                    onchange="validateEmail(this)" />
+                  <div id="EmailError" class="error"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+
+                  <label for="mob" class="regi_label">Mobile Number:</label>
+                  <input type="text" id="mob" name="mob" pattern="^[7-9]\d{9}$" required class="regi_input"
+                    placeholder=" Enter Your Mobile Number" data-error-message="Enter a valid number"
+                    onblur="validateMobileNumber(this)" onchange="validateMobileNumber(this)" />
+                  <div id="mobError" class="error"></div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="dob" class="regi_label">Date of Birth:</label>
+                  <input type="date" id="dob" name="dob" required class="regi_input" placeholder="Age must be above 18"
+                    onblur="validateAge(this)" onchange="validateAge(this)" />
+                  <div id="dobError" class="error"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="country" class="regi_label">Select a Country:</label>
+                  {% load countries %}
+                  {% get_countries as countries %}
+                  <select class=" regi_select" id="country" name="country" required>
+                    <option value="">Please select a country</option>
+                    {% for country in countries %}
+                    <option value="{{ country.code }}">{{ country.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="password" class="regi_label">Password:</label>
+                  <input type="password" id="password" name="password" required class="regi_input"
+                    placeholder=" Enter Your Password" />
+                </div>
+                <div class="col-md-6">
+                  <label for="confirm_password" class="regi_label">Confirm Password:</label>
+                  <input type="password" id="confirm_password" name="confirm_password" required class="regi_input"
+                    placeholder=" Confirm Your Passsword" />
+                </div>
+              </div>
+              <!--label for="role" class="regi_label">Role:</label>
+              <label>
+                <input name="role" type="radio" value="Job Provider" checked required class="regi_radio" />
+                <span class="regi_radio-span">Job Provider</span>
+              </label>
+              <label>
+                <input name="role" type="radio" value="Job Seeker" required class="regi_radio" />
+                <span class="regi_radio-span">Job Seeker</span>
+              </label-->
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="submit" value="Register" onclick="return validateForm();" class="regi_submit" />
+                </div>
+              </div>
+
+
+            </form>
+            <script type="text/javascript">
+              function validateFirstName(input) {
+                const firstName = input.value.trim();
+                const errorDiv = document.getElementById("FirstnameError");
+
+                if (firstName === "") {
+                  errorDiv.textContent = "Please enter a First Name.";
+                }
+                else if (!/^[a-zA-Z]+$/.test(firstName)) {
+                  errorDiv.textContent = "Invalid first name";
+                }
+                else {
+                  errorDiv.textContent = "";
+                }
+              }
+              function validateLastName(input) {
+                const lastName = input.value.trim();
+                const errorDiv = document.getElementById("LastnameError");
+
+                if (lastName === "") {
+                  errorDiv.textContent = "Please enter a Last Name";
+                }
+                else if (!/^[a-zA-Z]+$/.test(lastName)) {
+                  errorDiv.textContent = "Invalid first name";
+                }
+                else {
+                  errorDiv.textContent = "";
+                }
+              }
+              function validateMobileNumber(input) {
+                const mobileNumber = input.value.trim();
+                const errorDiv = document.getElementById("mobError");
+
+                if (!/^([7-9]\d{9})$/.test(mobileNumber)) {
+                  errorDiv.textContent = "Enter a valid number";
+                } else {
+                  errorDiv.textContent = "";
+                }
+              }
+              function validateEmail(input) {
+                const email = input.value.trim();
+                const errorDiv = document.getElementById("EmailError");
+                if (email === "") {
+                  errorDiv.textContent = "Please enter Email";
+                }
+                else if (!/^[\w.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(email)) {
+                  errorDiv.textContent = "Invalid email address";
+                } else {
+                  errorDiv.textContent = "";
+                }
+              }
+
+              function validateUsername(input) {
+                const username = input.value.trim();
+                const errorDiv = document.getElementById("UsernameError");
+
+                if (username === "") {
+                  errorDiv.textContent = "Please enter a username.";
+                } else {
+                  errorDiv.textContent = "";
+                }
+              }
+
+              function validateAge(input) {
+                var selectedDate = new Date(input.value);
+                var currentDate = new Date();
+                var minDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
+                var dobError = document.getElementById('dobError'); // Get the error container
+                console.log(currentDate);
+                if (selectedDate > minDate) {
+                  dobError.innerHTML = "Age must be above 18"; // Set the error message
+                  input.setCustomValidity("Age must be above 18");
+                } else {
+                  dobError.innerHTML = ""; // Clear the error message
+                  input.setCustomValidity("");
+                }
+              }
+              function validateForm() {
+                const password = document.getElementById("password").value;
+                const confirmPassword = document.getElementById("confirm_password").value;
+
+                if (password !== confirmPassword) {
+                  alert("Passwords do not match");
+                  return false;
+                }
+
+                return true;
+              }
+
+            </script>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</html>
+{% endblock %}

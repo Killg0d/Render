@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% extends 'base.html'%}
+    {% block content %}
+
+    {% load static %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    {% include "messages.html" %}
+    {% block title %}
+    <title>Jobtitle</title>
+    {% endblock %}
+
+    <style>
+        .overall {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10%;
+
+
+        }
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid black;
+            width: 47%;
+            padding: 2%;
+            padding-left: 5%;
+
+        }
+
+        .right {
+            display: flex;
+            flex-direction: column;
+            width: 45%;
+            padding: 2%;
+            padding-left: 5%;
+            height: 100%;
+
+        }
+
+        .none {
+            list-style: circle;
+        }
+
+        .display {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right .next {
+            margin: 5%;
+            align-self: flex-end;
+
+
+            float: right;
+
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        function showHourlyRate() {
+            document.getElementById("hourlyRateContent").style.display = "block";
+            document.getElementById("projectBudgetContent").style.display = "none";
+            var type = document.getElementById('option');
+            type.value = "hourlyRate"
+        }
+
+
+
+        function showProjectBudget() {
+            document.getElementById("hourlyRateContent").style.display = "none";
+            document.getElementById("projectBudgetContent").style.display = "block";
+            var type = document.getElementById('option');
+            type.value = "projectBudget"
+        }
+    </script>
+</head>
+
+<body>
+    <div class="overall pt-100 pb-100">
+        <div class="left ps-20">
+            <h6>4/5 Budget</h6><br>
+            <H4><b> Tell us about your budget</b></H4><br>
+            <h6>This will help us match you to talent within your range</h6>
+
+        </div>
+        <div class="right ps-30 ">
+            <form class="display" action="job_budget" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="card mb-3">
+                            <label>
+                                <div class="card-body">
+
+                                    <i class="fas fa-clock"></i>
+                                    <input type="radio" name="option" onclick="showHourlyRate();" required>
+                                    <h5 class="card-title">Hourly Rate</h5>
+
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body"> <label>
+                                    <i class="fas fa-tag"></i>
+                                    <input type="radio" name="option" onclick="showProjectBudget();" required>
+                                    <h5 class="card-title">Project budget</h5>
+                            </div></label>
+                        </div>
+                    </div>
+                    <input type="hidden" name="option" id="option">
+                    <div id="hourlyRateContent" class="hidden">
+
+
+
+                        <label>From <br>
+                            ₹ <input type="text" name="from" size="5"> /hour
+                        </label>&emsp;
+                        <label>To <br>
+                            ₹ <input type="text" name="to" size="5"> /hour
+                        </label><br>
+                    </div>
+
+                    <div id="projectBudgetContent" class="hidden">
+
+
+                        <b>Maximum Project budget(Rs)</b><br>
+                        <label>
+                            ₹ <input type="text" name="budget" size="8">
+                        </label><br>
+                        You will have the option to create milestones which divide your project into manageable phases.
+
+                        <br>
+                    </div>
+                </div>
+
+                <input class="next btn btn-primary bg-pink" type="submit" value="Next"></label>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
+{%endblock%}

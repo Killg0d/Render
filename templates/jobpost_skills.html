@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% extends 'base.html'%}
+  {% block content %}
+
+  {% load static %}
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  {% include "messages.html" %}
+  {% block title %}
+  <title>Jobtitle</title>
+  {% endblock %}
+
+  <style>
+    .overall {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 10%;
+
+
+    }
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid black;
+      width: 47%;
+      padding: 2%;
+      padding-left: 5%;
+
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      width: 45%;
+      padding: 2%;
+      padding-left: 5%;
+      height: 100%;
+
+    }
+
+    .none {
+      list-style: circle;
+    }
+
+    .display {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .right .next {
+      margin: 5%;
+      align-self: flex-end;
+
+
+      float: right;
+
+    }
+
+    .skills {
+      margin-left: 5%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="overall pt-100 pb-100">
+    <div class="left ps-20">
+      <h6>2/5 Category & Skills</h6><br>
+      <H4><b> What are the main skills required for your work?</b></H4><br>
+      <h6>This helps your job post to be taken by those who have the skill!</h6>
+
+    </div>
+    <div class="right ps-30 ">
+      <form class="display" action="job_skills" method="post">
+        {% csrf_token %}
+
+        </label><br><br>
+        <label for="selected-skills">
+          <h4><b>Select skills:</b></h4>
+        </label>
+        <div class="skills">
+          {% for skill in skills %}
+          <label>
+            <input type="checkbox" class="none" name="selected-skills" value="{{ skill }}"><span
+              class="checkmark"></span> {{ skill }}
+          </label>
+          <br>
+          {% endfor %}
+        </div>
+
+
+
+
+
+
+
+
+        <input class="next btn btn-primary bg-pink" type="submit" value="Next"></label>
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>
+{%endblock%}
