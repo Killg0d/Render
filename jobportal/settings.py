@@ -105,10 +105,10 @@ DATABASES = {
         'PORT': 3306,
     }
 }
-if not DEBUG:
-    database_url= os.environ.get("DATABASE_URL")
-    #Overwite the defaults
-    DATABASES["default"] = dj_database_url.parse(database_url)
+
+database_url= os.environ.get("DATABASE_URL")
+#Overwite the defaults
+DATABASES["default"] = dj_database_url.parse(database_url)
 
 
 # Password validation
